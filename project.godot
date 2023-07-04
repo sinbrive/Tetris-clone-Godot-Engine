@@ -29,6 +29,7 @@ window/stretch/aspect="keep"
 [global]
 
 layer=false
+export=false
 
 [gui]
 
