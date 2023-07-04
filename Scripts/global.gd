@@ -1,10 +1,6 @@
 extends Node
 
-var can_move=true
-
-var frozen_squares=[]
-
-## see array variables below
+## see tetros_set and colors arrays at the end of this file
 
 class Point:
 	var x
