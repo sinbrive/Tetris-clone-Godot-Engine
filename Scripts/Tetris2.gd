@@ -15,40 +15,46 @@ var index=0
 
 var lines
 
+var game_over=false
+
 var inputs={
 	'ui_up': Vector2.UP,
 	'ui_down': Vector2.DOWN,
 	'ui_left': Vector2.LEFT,
 	'ui_right': Vector2.RIGHT,
-	'ui_down_timer': Vector2.DOWN
+#	'ui_down_timer': Vector2.DOWN
 	}
 
 func _unhandled_input(event):
 	for dir in inputs.keys():
 		if event.is_action_pressed(dir):
-			move(dir)
+			move(dir, false)
 
 func _ready():
 	randomize()
 	index=randi() % global.tetros_set.size()
-	current_shape = get_shape(global.tetros_set[index], 0)
+	current_shape = get_shape(global.tetros_set[index], rot)
 	$ShapeArea.add_child(current_shape)
 	lines = tiles_2_set.instance()
 	$ShapeArea.add_child(lines)
 	$Timer.start()
+	$GameOver.hide()
 	
 func _physics_process(delta):
 	pass
 
 func _on_Timer_timeout():
-	move('ui_down_timer')
+	move('ui_down', true)
 
-func _on_nextShapeTimer_timeout():
-	move('ui_down_timer')
 
-func move(dir):
+func _on_fallTimer_timeout():
+	move('ui_down', true)
+ 
+func move(dir, tick):
+	if game_over:
+		return
 	
-	if dir=='ui_down':
+	if dir=='ui_down' and not tick:
 		$fallTimer.wait_time=0.01
 		$fallTimer.start()
 		return
@@ -87,9 +93,18 @@ func move(dir):
 			$fallTimer.stop()
 			check_lines_full()
 			
+			for ch in lines.get_children():
+				if ch.global_position.y <= 4*GRID:
+					game_over=true
+					$Timer.stop()
+					$fallTimer.stop()
+					$GameOver.show()
+					return
+			
 			var i=randi() % global.tetros_set.size()
 			index=i
-			current_shape = get_shape(global.tetros_set[i], 0)
+			rot=0
+			current_shape = get_shape(global.tetros_set[i], rot)
 			$ShapeArea.add_child(current_shape)
 			return
 			
@@ -176,4 +191,5 @@ func remove_line(row):
 	for ln in lines.get_children():
 		if ln.global_position.y  < row:
 			ln.global_position.y += GRID
+
 

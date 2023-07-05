@@ -23,5 +23,17 @@ wait_time = 0.5
 [node name="fallTimer" type="Timer" parent="."]
 autostart = true
 
+[node name="GameOver" type="Label" parent="."]
+modulate = Color( 0.878431, 0.552941, 0.517647, 1 )
+margin_left = 116.0
+margin_top = 340.0
+margin_right = 202.0
+margin_bottom = 361.0
+rect_scale = Vector2( 2, 2 )
+text = "Game Over"
+align = 1
+valign = 1
+uppercase = true
+
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
-[connection signal="timeout" from="fallTimer" to="." method="_on_nextShapeTimer_timeout"]
+[connection signal="timeout" from="fallTimer" to="." method="_on_fallTimer_timeout"]

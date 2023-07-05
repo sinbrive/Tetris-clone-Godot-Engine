@@ -27,12 +27,6 @@ centered = false
 position = Vector2( 192, 688 )
 shape = SubResource( 3 )
 
-[node name="floor2" type="StaticBody2D" parent="." groups=["floor"]]
-
-[node name="floor" type="CollisionShape2D" parent="floor2"]
-position = Vector2( 192, 688 )
-shape = SubResource( 3 )
-
 [node name="top" type="StaticBody2D" parent="." groups=["top"]]
 
 [node name="top" type="CollisionShape2D" parent="top"]
