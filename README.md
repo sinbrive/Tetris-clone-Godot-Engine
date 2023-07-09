@@ -1,4 +1,4 @@
-#     Tetris-clone-Godot-Engine
+# Tetris-clone-Godot-Engine
 
 
 Godot 3.5.2
@@ -9,6 +9,5 @@ Credit :
 - Asssets : Tetriminos Pack By L-Gad
 
 To do:
-- managing score and levels
 - adding sounds
 - adding screens : start, game over 
