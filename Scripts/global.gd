@@ -9,175 +9,175 @@ class Point:
 		x=_x
 		y=_y
 
+
+var t_I = [
+		[
+		Point.new(0,1), 
+		Point.new(1,1), 
+		Point.new(2,1), 
+		Point.new(3,1)
+	  ],
+		[
+		Point.new(2,0), 
+		Point.new(2,1),  
+		Point.new(2,2), 
+		Point.new(2,3), 
+	  ],
+	   [
+		Point.new(0,2), 
+		Point.new(1,2),  
+		Point.new(2,2),
+		Point.new(3,2)  
+	  ],
+	
+	  [ Point.new(1,0), 
+		Point.new(1,1), 
+		Point.new(1,2), 
+		Point.new(1,3) 
+	  ]
+  ]
+
+
+var t_J = [
+	  [
+		Point.new(0,0),
+		Point.new(0,1),  
+		Point.new(1,1),
+		Point.new(2,1)
+	  ],
+	  [
+		Point.new(1,0),
+		Point.new(2,0),
+		Point.new(1,1),
+		Point.new(1,2)
+	  ],
+	  [
+		Point.new(0,1),
+		Point.new(1,1),
+		Point.new(2,1),
+		Point.new(2,2) 
+	  ],
+	  [
+		Point.new(1,0),
+		Point.new(1,1),  
+		Point.new(0,2),
+		Point.new(1,2)
+	  ]
+  ]
+
 var t_L = [
   [
-	Point.new(0,0),
+	Point.new(2,0),
 	Point.new(0,1),
-	Point.new(0,2),
-	Point.new(1,2)
+	Point.new(1,1),
+	Point.new(2,1)
+  ],
+
+  [
+	Point.new(1,0), 
+	Point.new(1,1),  
+	Point.new(1,2),  
+	Point.new(2,2) 
   ],
 
   [
 	Point.new(0,1), 
-	Point.new(1,1),  
-	Point.new(2,0),  
-	Point.new(2,1) 
-  ],
-
-  [
-	Point.new(0,0), 
-	Point.new(1,0),
 	Point.new(1,1),
-	Point.new(1,2) 
+	Point.new(2,1),
+	Point.new(0,2) 
   ],
 
    [
 	Point.new(0,0), 
-	Point.new(0,1), 
 	Point.new(1,0), 
-	Point.new(2,0)
+	Point.new(1,1), 
+	Point.new(1,2)
    ]
 ]
 
-
-var t_I = [
+var t_O = [
 	  [
-		Point.new(0,0), 
 		Point.new(1,0), 
 		Point.new(2,0), 
-		Point.new(3,0)
+		Point.new(1,1), 
+		Point.new(2,1)
 	  ],
 	  [
-		Point.new(0,0), 
-		Point.new(0,1),  
-		Point.new(0,2), 
-		Point.new(0,3), 
-		
-	  ],
-	   [
-		Point.new(0,0), 
-		Point.new(1,0),  
-		Point.new(2,0),
-		Point.new(3,0)  
+		Point.new(1,0), 
+		Point.new(2,0), 
+		Point.new(1,1), 
+		Point.new(2,1)
 	  ],
 	  [
-		Point.new(0,0), 
-		Point.new(0,1), 
-		Point.new(0,2), 
-		Point.new(0,3) 
+		Point.new(1,0), 
+		Point.new(2,0), 
+		Point.new(1,1), 
+		Point.new(2,1)
+	  ],
+	  [
+		Point.new(1,0), 
+		Point.new(2,0), 
+		Point.new(1,1), 
+		Point.new(2,1)
 	  ]
   ]
 
-var t_O = [
+
+var t_S = [
 	  [
-		Point.new(0,0), 
-		Point.new(0,1), 
-		Point.new(1,0), 
+		Point.new(1,0),
+		Point.new(2,0),  
+		Point.new(0,1),
 		Point.new(1,1)
 	  ],
 	  [
-		Point.new(0,0),
-		Point.new(0,1), 
 		Point.new(1,0),
-		Point.new(1,1) 
+		Point.new(1,1),
+		Point.new(2,1),
+		Point.new(2,2)
 	  ],
 	  [
-		Point.new(0,0), 
+		Point.new(1,1),
+		Point.new(2,1),  
+		Point.new(0,2),
+		Point.new(1,2)
+	  ],
+	  [
+		Point.new(0,0),
 		Point.new(0,1),
-		Point.new(1,0),
-		Point.new(1,1) 
-	  ],
-	  [
-		Point.new(0,0),
-		Point.new(0,1), 
-		Point.new(1,0), 
-		Point.new(1,1) 
+		Point.new(1,1),
+		Point.new(1,2)
 	  ]
   ]
 
 
 var t_T = [
 	  [
-		Point.new(0,0),
-		Point.new(1,0),  
-		Point.new(1,1),
-		Point.new(2,0)
-	  ],
-	  [
-		Point.new(0,0),
-		Point.new(0,1),
-		Point.new(0,2),
-		Point.new(1,1)
-	  ],
-	  [
-		Point.new(0,1),
-		Point.new(1,0),  
+		Point.new(1,0),
+		Point.new(0,1),  
 		Point.new(1,1),
 		Point.new(2,1)
 	  ],
 	  [
+		Point.new(1,0),
+		Point.new(1,1),
+		Point.new(2,1),
+		Point.new(1,2)
+	  ],
+	  [
 		Point.new(0,1),
-		Point.new(1,0),  
+		Point.new(1,1),  
+		Point.new(2,1),
+		Point.new(1,2)
+	  ],
+	  [
+		Point.new(1,0),
+		Point.new(0,1),  
 		Point.new(1,1),
 		Point.new(1,2)
 	  ]
   ]
   
-
-var t_J = [
-	  [
-		Point.new(0,2),
-		Point.new(1,0),  
-		Point.new(1,1),
-		Point.new(1,2)
-	  ],
-	  [
-		Point.new(0,0),
-		Point.new(0,1),
-		Point.new(1,1),
-		Point.new(2,1)
-	  ],
-	  [
-		Point.new(0,0),
-		Point.new(0,1),
-		Point.new(0,2),
-		Point.new(1,0) 
-	  ],
-	  [
-		Point.new(0,0),
-		Point.new(1,0),  
-		Point.new(1,1),
-		Point.new(1,2)
-	  ]
-  ]
-
-var t_S = [
-	  [
-		Point.new(0,1),
-		Point.new(1,0),  
-		Point.new(1,1),
-		Point.new(2,0)
-	  ],
-	  [
-		Point.new(0,0),
-		Point.new(0,1),
-		Point.new(1,1),
-		Point.new(1,2)
-	  ],
-	  [
-		Point.new(0,1),
-		Point.new(1,0),  
-		Point.new(1,1),
-		Point.new(2,0)
-	  ],
-	  [
-		Point.new(0,0),
-		Point.new(0,1),
-		Point.new(1,1),
-		Point.new(1,2)
-	  ]
-  ]
-
 var t_Z = [
 	  [
 		Point.new(0,0),
@@ -186,22 +186,22 @@ var t_Z = [
 		Point.new(2,1)
 	  ],
 	  [
-		Point.new(0,1),
-		Point.new(0,2),
-		Point.new(1,0), 
-		Point.new(1,1)
-	  ],
-	  [
-		Point.new(0,0),
-		Point.new(1,0),  
+		Point.new(2,0),
 		Point.new(1,1),
-		Point.new(2,1)
+		Point.new(2,1), 
+		Point.new(1, 2)
 	  ],
 	  [
 		Point.new(0,1),
-		Point.new(0,2),
-		Point.new(1,0),  
-		Point.new(1,1)
+		Point.new(1,1),
+		Point.new(1,2),  
+		Point.new(2,2)
+	  ],
+	  [
+		Point.new(1,0),
+		Point.new(0,1),
+		Point.new(1,1),  
+		Point.new(0,2)
 	  ]
   ]
 

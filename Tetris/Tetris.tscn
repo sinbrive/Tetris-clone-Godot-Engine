@@ -1,29 +1,32 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Tetris/Board.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Scripts/Tetris2.gd" type="Script" id=2]
 [ext_resource path="res://Assets/shape_area.png" type="Texture" id=3]
+[ext_resource path="res://Assets/Border.png" type="Texture" id=4]
 
-[node name="Tetris" type="Node2D"]
+[node name="Game" type="Node2D"]
+
+[node name="Tetris" type="Node2D" parent="."]
 script = ExtResource( 2 )
 __meta__ = {
 "_edit_group_": true
 }
 
-[node name="Board" parent="." instance=ExtResource( 1 )]
+[node name="Board" parent="Tetris" instance=ExtResource( 1 )]
 
-[node name="ShapeArea" type="Sprite" parent="."]
+[node name="ShapeArea" type="Sprite" parent="Tetris"]
 position = Vector2( 32, 32 )
 texture = ExtResource( 3 )
 centered = false
 
-[node name="Timer" type="Timer" parent="."]
+[node name="Timer" type="Timer" parent="Tetris"]
 wait_time = 0.5
 
-[node name="fallTimer" type="Timer" parent="."]
+[node name="fallTimer" type="Timer" parent="Tetris"]
 autostart = true
 
-[node name="GameOver" type="Label" parent="."]
+[node name="GameOver" type="Label" parent="Tetris"]
 modulate = Color( 0.878431, 0.552941, 0.517647, 1 )
 margin_left = 116.0
 margin_top = 340.0
@@ -35,5 +38,229 @@ align = 1
 valign = 1
 uppercase = true
 
-[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
-[connection signal="timeout" from="fallTimer" to="." method="_on_fallTimer_timeout"]
+[node name="GUI" type="NinePatchRect" parent="."]
+margin_left = 384.0
+margin_right = 581.0
+margin_bottom = 704.0
+texture = ExtResource( 4 )
+region_rect = Rect2( 192, 0, 0, 0 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="GUI"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 20.0
+margin_right = -1.0
+margin_bottom = -45.0
+custom_constants/separation = 50
+
+[node name="dummy" type="MarginContainer" parent="GUI/VBoxContainer"]
+margin_right = 176.0
+margin_bottom = 20.0
+rect_min_size = Vector2( 0, 20 )
+
+[node name="NextLabel" type="MarginContainer" parent="GUI/VBoxContainer"]
+margin_top = 70.0
+margin_right = 176.0
+margin_bottom = 84.0
+
+[node name="label" type="Label" parent="GUI/VBoxContainer/NextLabel"]
+margin_right = 176.0
+margin_bottom = 14.0
+text = "Next Shape"
+align = 1
+valign = 1
+
+[node name="MarginContainer2" type="MarginContainer" parent="GUI/VBoxContainer"]
+margin_top = 134.0
+margin_right = 176.0
+margin_bottom = 275.0
+size_flags_vertical = 3
+
+[node name="Next" type="GridContainer" parent="GUI/VBoxContainer/MarginContainer2"]
+margin_right = 176.0
+margin_bottom = 141.0
+custom_constants/vseparation = 0
+custom_constants/hseparation = 0
+
+[node name="Rect" type="TextureRect" parent="GUI/VBoxContainer/MarginContainer2/Next"]
+
+[node name="CenterContainer" type="CenterContainer" parent="GUI/VBoxContainer"]
+margin_top = 325.0
+margin_right = 176.0
+margin_bottom = 467.0
+size_flags_vertical = 3
+
+[node name="Grid" type="GridContainer" parent="GUI/VBoxContainer/CenterContainer"]
+margin_left = 38.0
+margin_top = 21.0
+margin_right = 138.0
+margin_bottom = 121.0
+rect_min_size = Vector2( 100, 100 )
+custom_constants/vseparation = 20
+custom_constants/hseparation = 20
+columns = 2
+
+[node name="_score" type="Label" parent="GUI/VBoxContainer/CenterContainer/Grid"]
+margin_right = 35.0
+margin_bottom = 14.0
+text = "score"
+
+[node name="score" type="Label" parent="GUI/VBoxContainer/CenterContainer/Grid"]
+margin_left = 55.0
+margin_right = 63.0
+margin_bottom = 14.0
+text = "0"
+
+[node name="_level" type="Label" parent="GUI/VBoxContainer/CenterContainer/Grid"]
+margin_top = 34.0
+margin_right = 35.0
+margin_bottom = 48.0
+text = "level"
+
+[node name="level" type="Label" parent="GUI/VBoxContainer/CenterContainer/Grid"]
+margin_left = 55.0
+margin_top = 34.0
+margin_right = 63.0
+margin_bottom = 48.0
+text = "0"
+
+[node name="CenterContainer3" type="CenterContainer" parent="GUI/VBoxContainer"]
+margin_top = 517.0
+margin_right = 176.0
+margin_bottom = 659.0
+size_flags_vertical = 3
+
+[node name="GridContainer" type="GridContainer" parent="GUI/VBoxContainer/CenterContainer3"]
+margin_left = 56.0
+margin_top = 3.0
+margin_right = 120.0
+margin_bottom = 139.0
+rect_min_size = Vector2( 20, 100 )
+custom_constants/vseparation = 20
+
+[node name="Pause_btn" type="Button" parent="GUI/VBoxContainer/CenterContainer3/GridContainer"]
+margin_right = 64.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 64, 32 )
+text = "Pause"
+
+[node name="Resume_btn" type="Button" parent="GUI/VBoxContainer/CenterContainer3/GridContainer"]
+margin_top = 52.0
+margin_right = 64.0
+margin_bottom = 84.0
+rect_min_size = Vector2( 64, 32 )
+text = "Resume"
+
+[node name="Quit_btn" type="Button" parent="GUI/VBoxContainer/CenterContainer3/GridContainer"]
+margin_top = 104.0
+margin_right = 64.0
+margin_bottom = 136.0
+rect_min_size = Vector2( 64, 32 )
+text = "Quit"
+
+[node name="MGUI" type="NinePatchRect" parent="."]
+margin_top = 704.0
+margin_right = 586.0
+margin_bottom = 810.0
+texture = ExtResource( 4 )
+region_rect = Rect2( 192, 0, 0, 0 )
+
+[node name="CenterContainer" type="CenterContainer" parent="MGUI"]
+margin_right = 582.0
+margin_bottom = 108.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MGUI/CenterContainer"]
+margin_left = 206.0
+margin_top = 14.0
+margin_right = 376.0
+margin_bottom = 94.0
+custom_constants/separation = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MGUI/CenterContainer/HBoxContainer"]
+margin_right = 50.0
+margin_bottom = 80.0
+custom_constants/separation = 10
+
+[node name="Panel" type="Panel" parent="MGUI/CenterContainer/HBoxContainer/VBoxContainer"]
+modulate = Color( 1, 1, 1, 0 )
+self_modulate = Color( 0.0627451, 0.054902, 0.054902, 1 )
+margin_right = 50.0
+margin_bottom = 20.0
+rect_min_size = Vector2( 50, 20 )
+
+[node name="Left" type="Button" parent="MGUI/CenterContainer/HBoxContainer/VBoxContainer"]
+margin_top = 30.0
+margin_right = 50.0
+margin_bottom = 50.0
+rect_min_size = Vector2( 50, 0 )
+text = "Left"
+
+[node name="Panel2" type="Panel" parent="MGUI/CenterContainer/HBoxContainer/VBoxContainer"]
+modulate = Color( 1, 1, 1, 0 )
+margin_top = 60.0
+margin_right = 50.0
+margin_bottom = 80.0
+rect_min_size = Vector2( 50, 20 )
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="MGUI/CenterContainer/HBoxContainer"]
+margin_left = 60.0
+margin_right = 110.0
+margin_bottom = 80.0
+custom_constants/separation = 10
+
+[node name="Up" type="Button" parent="MGUI/CenterContainer/HBoxContainer/VBoxContainer2"]
+margin_right = 50.0
+margin_bottom = 20.0
+rect_min_size = Vector2( 50, 20 )
+text = "Up"
+
+[node name="Pause" type="Button" parent="MGUI/CenterContainer/HBoxContainer/VBoxContainer2"]
+modulate = Color( 1, 1, 1, 0 )
+margin_top = 30.0
+margin_right = 50.0
+margin_bottom = 50.0
+rect_min_size = Vector2( 50, 20 )
+
+[node name="Down" type="Button" parent="MGUI/CenterContainer/HBoxContainer/VBoxContainer2"]
+margin_top = 60.0
+margin_right = 50.0
+margin_bottom = 80.0
+rect_min_size = Vector2( 50, 20 )
+text = "Down"
+
+[node name="VBoxContainer3" type="VBoxContainer" parent="MGUI/CenterContainer/HBoxContainer"]
+margin_left = 120.0
+margin_right = 170.0
+margin_bottom = 80.0
+custom_constants/separation = 10
+
+[node name="Panel" type="Panel" parent="MGUI/CenterContainer/HBoxContainer/VBoxContainer3"]
+modulate = Color( 1, 1, 1, 0 )
+margin_right = 50.0
+margin_bottom = 20.0
+rect_min_size = Vector2( 50, 20 )
+rect_pivot_offset = Vector2( -573, 100 )
+
+[node name="Right" type="Button" parent="MGUI/CenterContainer/HBoxContainer/VBoxContainer3"]
+margin_top = 30.0
+margin_right = 50.0
+margin_bottom = 50.0
+rect_min_size = Vector2( 50, 20 )
+text = "Right"
+
+[node name="Panel2" type="Panel" parent="MGUI/CenterContainer/HBoxContainer/VBoxContainer3"]
+modulate = Color( 1, 1, 1, 0 )
+margin_top = 60.0
+margin_right = 50.0
+margin_bottom = 80.0
+rect_min_size = Vector2( 50, 20 )
+
+[connection signal="timeout" from="Tetris/Timer" to="Tetris" method="_on_Timer_timeout"]
+[connection signal="timeout" from="Tetris/fallTimer" to="Tetris" method="_on_fallTimer_timeout"]
+[connection signal="pressed" from="GUI/VBoxContainer/CenterContainer3/GridContainer/Pause_btn" to="Tetris" method="_on_Pause_btn_pressed"]
+[connection signal="pressed" from="GUI/VBoxContainer/CenterContainer3/GridContainer/Resume_btn" to="Tetris" method="_on_Resume_btn_pressed"]
+[connection signal="pressed" from="GUI/VBoxContainer/CenterContainer3/GridContainer/Quit_btn" to="Tetris" method="_on_Quit_btn_pressed"]
+[connection signal="pressed" from="MGUI/CenterContainer/HBoxContainer/VBoxContainer/Left" to="Tetris" method="_on_Left_pressed"]
+[connection signal="pressed" from="MGUI/CenterContainer/HBoxContainer/VBoxContainer2/Up" to="Tetris" method="_on_Up_pressed"]
+[connection signal="pressed" from="MGUI/CenterContainer/HBoxContainer/VBoxContainer2/Down" to="Tetris" method="_on_Down_pressed"]
+[connection signal="pressed" from="MGUI/CenterContainer/HBoxContainer/VBoxContainer3/Right" to="Tetris" method="_on_Right_pressed"]

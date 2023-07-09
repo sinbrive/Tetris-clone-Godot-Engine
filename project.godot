@@ -20,9 +20,10 @@ global="*res://Scripts/global.gd"
 
 [display]
 
-window/size/width=384
-window/size/height=704
+window/size/width=582
+window/size/height=820
 window/tablet_driver="Tetris"
+window/handheld/orientation="portrait"
 window/stretch/mode="2d"
 window/stretch/aspect="keep"
 

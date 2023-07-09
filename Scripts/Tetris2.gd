@@ -9,21 +9,30 @@ onready var tiles_2_set=preload("res://Tetris/Tiles_2_set.tscn")
 const GRID=32
 
 var current_shape
+var next_shape
 
 var rot=0
 var index=0
+var next_index=0
+
+var points_per_level=1000
+var level=1
 
 var lines
 
 var game_over=false
 
+var pause_state=false
+
+var score=0
+
 var inputs={
 	'ui_up': Vector2.UP,
 	'ui_down': Vector2.DOWN,
 	'ui_left': Vector2.LEFT,
-	'ui_right': Vector2.RIGHT,
-#	'ui_down_timer': Vector2.DOWN
+	'ui_right': Vector2.RIGHT
 	}
+
 
 func _unhandled_input(event):
 	for dir in inputs.keys():
@@ -39,9 +48,15 @@ func _ready():
 	$ShapeArea.add_child(lines)
 	$Timer.start()
 	$GameOver.hide()
+	display_next_shape()
 	
 func _physics_process(delta):
-	pass
+	var _score = get_parent().get_node("GUI/VBoxContainer/CenterContainer/Grid/score")
+	_score.text=str(score)
+	var _level = get_parent().get_node("GUI/VBoxContainer/CenterContainer/Grid/level")
+	_level.text=str(level)
+	
+
 
 func _on_Timer_timeout():
 	move('ui_down', true)
@@ -49,16 +64,20 @@ func _on_Timer_timeout():
 
 func _on_fallTimer_timeout():
 	move('ui_down', true)
+
  
 func move(dir, tick):
 	if game_over:
+		return
+		
+	if pause_state:
 		return
 	
 	if dir=='ui_down' and not tick:
 		$fallTimer.wait_time=0.01
 		$fallTimer.start()
 		return
-	
+		
 	# rotation
 	if dir=='ui_up':
 		if !can_rotate(current_shape, rot, index): 
@@ -100,21 +119,27 @@ func move(dir, tick):
 					$fallTimer.stop()
 					$GameOver.show()
 					return
-			
-			var i=randi() % global.tetros_set.size()
-			index=i
-			rot=0
-			current_shape = get_shape(global.tetros_set[i], rot)
+					
+			$ShapeArea.remove_child(current_shape)
+			current_shape.queue_free()
+			current_shape=next_shape.duplicate()
+			index=next_index
+			current_shape.position=Vector2(GRID/2, GRID/2)
 			$ShapeArea.add_child(current_shape)
+			$ShapeArea.remove_child(next_shape)
+			next_shape.queue_free()
+			
+			display_next_shape()
+			
 			return
 			
 	current_shape.position += vect_pos
 			
 			
-func get_shape(num, _rot):
+func get_shape(num, rot):
 	var coords=[]
 	var s = shape.instance()
-	var tetros= num[_rot]
+	var tetros= num[rot]
 	for coord in tetros:
 		var b = tile.instance()
 		b.modulate = global.colors[global.tetros_set.find(num, 0)]
@@ -131,6 +156,7 @@ func get_shape(num, _rot):
 	
 	s.add_child(ray)
 	return s
+
 
 func can_rotate(sh, _rot, _index):  # by reference !
 	var s = shape.instance()
@@ -152,9 +178,11 @@ func can_rotate(sh, _rot, _index):  # by reference !
 	s.queue_free()
 	return true
 	
+	
 func is_out_screen(ch):
 	return (ch.global_position.x > 9.5*GRID or ch.global_position.x < 1.5*GRID or
 				 ch.global_position.y < 1.5*GRID or  ch.global_position.y > 20.5*GRID )
+	
 	
 func move_squares_to_static():
 	for ch in current_shape.get_children():
@@ -168,6 +196,7 @@ func move_squares_to_static():
 	$ShapeArea.remove_child(current_shape)
 	current_shape.queue_free()
 
+
 func check_lines_full() -> void:
 	var count = 0
 	for i in range(lines.get_children().size()):
@@ -179,7 +208,12 @@ func check_lines_full() -> void:
 			break
 		if count == 10:
 			remove_line(row)
+			score+=100
+			if score > points_per_level*level:
+			  score=0
+			  level+=1
 		count = 0
+	
 		
 func remove_line(row):
 	var updated_lines = []
@@ -192,4 +226,39 @@ func remove_line(row):
 		if ln.global_position.y  < row:
 			ln.global_position.y += GRID
 
+
+func display_next_shape():
+	var next = get_parent().get_node("GUI/VBoxContainer/MarginContainer2/Next")
+	next_index=randi() % global.tetros_set.size()
+	next_shape = get_shape(global.tetros_set[next_index], 0)
+#	next_shape.position = Vector2(12*GRID, 2*GRID)
+	next.add_child(next_shape)
+
+
+func _on_Pause_btn_pressed():
+	pause_state=true
+
+
+func _on_Resume_btn_pressed():
+	pause_state=false
+
+
+func _on_Quit_btn_pressed():
+	get_tree().quit()
+
+
+func _on_Up_pressed():
+	move('ui_up', false)
+
+
+func _on_Left_pressed():
+	move('ui_left', false)
+
+
+func _on_Right_pressed():
+	move('ui_right', false)
+
+
+func _on_Down_pressed():
+	move('ui_down', false)
 
